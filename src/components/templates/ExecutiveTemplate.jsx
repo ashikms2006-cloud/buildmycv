@@ -1,212 +1,138 @@
-// ================================================
-// EXECUTIVE TEMPLATE
-// Traditional, elegant, high-density layout
-// ================================================
+export default function ExecutiveTemplate({ data, accentColor, fontStyle }) {
+  const accent = accentColor || "#b45309";
+  const { personal: p, experience, education, skills, customSections } = data;
 
-const GOLD = "#b45309";
-
-function contactLine(p) {
-  return [p.email, p.phone, p.location, p.website]
-    .filter(Boolean)
-    .join("  ·  ");
-}
-
-export default function ExecutiveTemplate({ data }) {
-  const { personal: p, experience, education, skills } = data;
+  const Section = ({ title }) => (
+    <div style={{ marginBottom: 10, marginTop: 20 }}>
+      <h2 style={{
+        fontSize: 11, fontWeight: 900,
+        letterSpacing: "0.14em",
+        textTransform: "uppercase",
+        color: accent, margin: "0 0 6px",
+        textAlign: "center",
+      }}>{title}</h2>
+      <div style={{ height: 1.5, background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }} />
+    </div>
+  );
 
   return (
     <div style={{
-      background: "#fff",
-      color: "#1c1c1c",
-      fontFamily: "'Times New Roman', serif",
-      padding: "36px 44px",
-      minHeight: "100%",
-      fontSize: 10.5,
+      fontFamily: fontStyle || "'Times New Roman', serif",
+      color: "#1a1a1a", background: "#fff",
+      padding: "52px 56px", fontSize: 11,
     }}>
-
-      {/* ── Header ── */}
-      <div style={{
-        textAlign: "center",
-        marginBottom: 18,
-        borderBottom: `2px solid ${GOLD}`,
-        paddingBottom: 16,
-      }}>
+      {/* Header */}
+      <div style={{ textAlign: "center", marginBottom: 6 }}>
+        {p.photo && (
+          <img src={p.photo} alt="profile" style={{
+            width: 80, height: 80, borderRadius: "50%",
+            objectFit: "cover", border: `3px solid ${accent}`,
+            marginBottom: 12,
+          }} />
+        )}
         <h1 style={{
-          fontSize: 24, fontWeight: 900,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          margin: "0 0 4px",
-          color: "#0a0a0f",
-          fontFamily: "sans-serif",
+          fontSize: 30, fontWeight: 900,
+          color: "#0a0a0a", margin: "0 0 6px",
+          letterSpacing: "2px", textTransform: "uppercase",
         }}>
           {p.name || "Your Name"}
         </h1>
-        <div style={{
-          fontSize: 11, color: GOLD,
-          fontWeight: 700, letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          fontFamily: "sans-serif", marginBottom: 6,
-        }}>
-          {p.title || "Professional Title"}
+        <div style={{ fontSize: 13, color: accent, fontWeight: 600, marginBottom: 8, fontStyle: "italic" }}>
+          {p.title}
         </div>
-        <div style={{
-          fontSize: 9.5, color: "#6b7280",
-          letterSpacing: "0.04em", fontFamily: "sans-serif",
-        }}>
-          {contactLine(p)}
+        <div style={{ height: 2, background: accent, margin: "10px auto", width: 80 }} />
+        <div style={{ fontSize: 10, color: "#555", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "3px 16px" }}>
+          {p.email    && <span>{p.email}</span>}
+          {p.phone    && <span>{p.phone}</span>}
+          {p.location && <span>{p.location}</span>}
+          {p.linkedin && <span>{p.linkedin}</span>}
         </div>
       </div>
 
-      {/* ── Summary ── */}
+      {/* Summary */}
       {p.summary && (
-        <div style={{ marginBottom: 16 }}>
-          <h2 style={{
-            fontSize: 10, fontWeight: 900,
-            letterSpacing: "0.2em", textTransform: "uppercase",
-            color: "#111", marginBottom: 6, fontFamily: "sans-serif",
-          }}>
-            Executive Summary
-          </h2>
-          <div style={{
-            height: 1, background: `${GOLD}60`, marginBottom: 8,
-          }} />
-          <p style={{
-            lineHeight: 1.7, color: "#374151",
-            fontStyle: "italic", fontSize: 10.5,
-          }}>
-            {p.summary}
-          </p>
-        </div>
+        <>
+          <Section title="Professional Summary" />
+          <p style={{ color: "#374151", lineHeight: 1.8, fontSize: 11, textAlign: "justify" }}>{p.summary}</p>
+        </>
       )}
 
-      {/* ── Experience ── */}
+      {/* Experience */}
       {experience.length > 0 && (
-        <div style={{ marginBottom: 16 }}>
-          <h2 style={{
-            fontSize: 10, fontWeight: 900,
-            letterSpacing: "0.2em", textTransform: "uppercase",
-            color: "#111", marginBottom: 6, fontFamily: "sans-serif",
-          }}>
-            Professional Experience
-          </h2>
-          <div style={{
-            height: 1, background: `${GOLD}60`, marginBottom: 10,
-          }} />
+        <>
+          <Section title="Professional Experience" />
           {experience.map((e) => (
-            <div key={e.id} style={{ marginBottom: 14 }}>
-              <div style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-              }}>
-                <div>
-                  <strong style={{
-                    fontSize: 11, fontFamily: "sans-serif",
-                    fontWeight: 800, textTransform: "uppercase",
-                    letterSpacing: "0.04em",
-                  }}>
-                    {e.role || "Role"}
-                  </strong>
-                  <span style={{
-                    fontSize: 10, color: GOLD,
-                    fontFamily: "sans-serif",
-                    fontWeight: 700, marginLeft: 8,
-                  }}>
-                    {e.company}
-                  </span>
-                </div>
-                <span style={{
-                  fontSize: 9, color: "#6b7280",
-                  fontFamily: "sans-serif", fontStyle: "italic",
-                }}>
-                  {e.period}{e.location ? ` | ${e.location}` : ""}
-                </span>
+            <div key={e.id} style={{ marginBottom: 16 }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <strong style={{ fontSize: 12, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  {e.role}
+                </strong>
+                <span style={{ fontSize: 10, color: "#6b7280", fontStyle: "italic" }}>{e.period}</span>
+              </div>
+              <div style={{ color: accent, fontWeight: 600, fontSize: 11, marginBottom: 5 }}>
+                {e.company}{e.location ? ` · ${e.location}` : ""}
               </div>
               {e.bullets.filter(Boolean).map((b, i) => (
-                <div key={i} style={{
-                  display: "flex", gap: 10, marginTop: 4,
-                }}>
-                  <span style={{
-                    color: GOLD, flexShrink: 0, fontSize: 9,
-                  }}>◆</span>
-                  <span style={{ lineHeight: 1.6, color: "#374151" }}>
-                    {b}
-                  </span>
+                <div key={i} style={{ display: "flex", gap: 8, marginBottom: 3 }}>
+                  <span style={{ color: accent, fontWeight: 900, flexShrink: 0 }}>◆</span>
+                  <span style={{ color: "#4b5563", lineHeight: 1.6 }}>{b}</span>
                 </div>
               ))}
             </div>
           ))}
-        </div>
+        </>
       )}
 
-      {/* ── Education ── */}
+      {/* Education */}
       {education.length > 0 && (
-        <div style={{ marginBottom: 16 }}>
-          <h2 style={{
-            fontSize: 10, fontWeight: 900,
-            letterSpacing: "0.2em", textTransform: "uppercase",
-            color: "#111", marginBottom: 6, fontFamily: "sans-serif",
-          }}>
-            Education
-          </h2>
-          <div style={{
-            height: 1, background: `${GOLD}60`, marginBottom: 10,
-          }} />
+        <>
+          <Section title="Education" />
           {education.map((e) => (
-            <div key={e.id} style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: 8,
-            }}>
+            <div key={e.id} style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
               <div>
-                <strong style={{
-                  fontSize: 11, fontFamily: "sans-serif", fontWeight: 800,
-                }}>
-                  {e.degree || "Degree"}
-                </strong>
-                <div style={{
-                  fontSize: 10, color: "#6b7280", fontFamily: "sans-serif",
-                }}>
+                <strong style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.05em" }}>{e.degree}</strong>
+                <div style={{ fontSize: 10, color: "#6b7280", fontStyle: "italic" }}>
                   {e.institution}{e.gpa ? ` · GPA: ${e.gpa}` : ""}
                 </div>
               </div>
-              <span style={{
-                fontSize: 9, color: "#6b7280",
-                fontFamily: "sans-serif", fontStyle: "italic",
-              }}>
-                {e.period}
-              </span>
+              <span style={{ fontSize: 10, color: "#6b7280" }}>{e.period}</span>
             </div>
           ))}
-        </div>
+        </>
       )}
 
-      {/* ── Skills ── */}
+      {/* Skills */}
       {skills.length > 0 && (
-        <div>
-          <h2 style={{
-            fontSize: 10, fontWeight: 900,
-            letterSpacing: "0.2em", textTransform: "uppercase",
-            color: "#111", marginBottom: 6, fontFamily: "sans-serif",
-          }}>
-            Core Competencies
-          </h2>
-          <div style={{
-            height: 1, background: `${GOLD}60`, marginBottom: 8,
-          }} />
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 20px" }}>
+        <>
+          <Section title="Core Competencies" />
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 8 }}>
             {skills.map((s) => (
               <span key={s.id} style={{
-                fontSize: 10, color: "#374151", fontFamily: "sans-serif",
+                border: `1px solid ${accent}`,
+                color: accent, borderRadius: 3,
+                padding: "3px 14px", fontSize: 10, fontWeight: 600,
               }}>
-                ◆ {s.name}
+                {s.name}
               </span>
             ))}
           </div>
-        </div>
+        </>
       )}
 
+      {/* Custom Sections */}
+      {(customSections || []).map((sec) => (
+        <div key={sec.id}>
+          <Section title={sec.title} />
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 6 }}>
+            {sec.items.filter((i) => i.text).map((item) => (
+              <div key={item.id} style={{ display: "flex", gap: 8, width: "100%", marginBottom: 3 }}>
+                <span style={{ color: accent, fontWeight: 700 }}>◆</span>
+                <span style={{ color: "#4b5563" }}>{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
-

@@ -1,282 +1,129 @@
-// ================================================
-// ACADEMIC TEMPLATE
-// Research/professor style with formal structure
-// ================================================
+export default function AcademicTemplate({ data, accentColor, fontStyle }) {
+  const accent = accentColor || "#7c3aed";
+  const { personal: p, experience, education, skills, customSections } = data;
 
-const DARK = "#1a1a2e";
-const ACCENT = "#7c3aed";
-
-function contactLine(p) {
-  return [p.email, p.phone, p.location, p.website]
-    .filter(Boolean)
-    .join("  ·  ");
-}
-
-export default function AcademicTemplate({ data }) {
-  const { personal: p, experience, education, skills } = data;
+  const Section = ({ title }) => (
+    <div style={{ marginTop: 20, marginBottom: 8 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ width: 8, height: 8, borderRadius: "50%", background: accent, flexShrink: 0 }} />
+        <h2 style={{ fontSize: 12, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.1em", color: accent, margin: 0 }}>{title}</h2>
+        <div style={{ flex: 1, height: 1, background: `${accent}30` }} />
+      </div>
+    </div>
+  );
 
   return (
     <div style={{
-      background: "#fff",
-      color: DARK,
-      fontFamily: "'Georgia', serif",
-      padding: "40px 50px",
-      minHeight: "100%",
-      fontSize: 11,
+      fontFamily: fontStyle || "'Georgia', serif",
+      color: "#1a1a1a", background: "#fff",
+      padding: "48px 52px", fontSize: 11,
     }}>
-
-      {/* ── Header ── */}
-      <div style={{
-        textAlign: "center",
-        marginBottom: 24,
-        paddingBottom: 20,
-      }}>
-        {/* Photo */}
-        {p.photo ? (
+      {/* Header */}
+      <div style={{ textAlign: "center", marginBottom: 8 }}>
+        {p.photo && (
           <img src={p.photo} alt="profile" style={{
-            width: 80, height: 80, borderRadius: "50%",
-            objectFit: "cover", marginBottom: 12,
-            border: `3px solid ${ACCENT}`,
+            width: 86, height: 86, borderRadius: "50%",
+            objectFit: "cover", border: `3px solid ${accent}`,
+            marginBottom: 12,
           }} />
-        ) : (
-          <div style={{
-            width: 80, height: 80, borderRadius: "50%",
-            background: `${ACCENT}20`,
-            border: `3px solid ${ACCENT}`,
-            display: "flex", alignItems: "center",
-            justifyContent: "center", margin: "0 auto 12px",
-            fontSize: 28, fontWeight: 900, color: ACCENT,
-          }}>
-            {(p.name || "?").charAt(0)}
-          </div>
         )}
-
-        <h1 style={{
-          fontSize: 26, fontWeight: 900,
-          letterSpacing: "0.04em",
-          margin: "0 0 6px", color: DARK,
-          fontFamily: "'Georgia', serif",
-        }}>
+        <h1 style={{ fontSize: 28, fontWeight: 900, color: "#0a0a0a", margin: "0 0 6px", letterSpacing: "-0.5px" }}>
           {p.name || "Your Name"}
         </h1>
-
-        <div style={{
-          fontSize: 12, color: ACCENT,
-          fontWeight: 700, letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          fontFamily: "sans-serif", marginBottom: 10,
-        }}>
-          {p.title || "Academic Title"}
+        <div style={{ fontSize: 13, color: accent, fontWeight: 600, marginBottom: 8 }}>{p.title}</div>
+        <div style={{ fontSize: 10, color: "#6b7280", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "3px 14px" }}>
+          {p.email && <span>{p.email}</span>}
+          {p.phone && <span>{p.phone}</span>}
+          {p.location && <span>{p.location}</span>}
+          {p.linkedin && <span>{p.linkedin}</span>}
         </div>
-
-        <div style={{
-          fontSize: 9.5, color: "#6b7280",
-          fontFamily: "sans-serif",
-        }}>
-          {contactLine(p)}
-        </div>
-
-        {/* Decorative line */}
-        <div style={{
-          display: "flex", alignItems: "center",
-          gap: 12, marginTop: 16,
-        }}>
-          <div style={{ flex: 1, height: 1, background: "#e5e7eb" }} />
-          <div style={{
-            width: 8, height: 8, borderRadius: "50%",
-            background: ACCENT,
-          }} />
-          <div style={{ flex: 1, height: 1, background: "#e5e7eb" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "14px 0 0" }}>
+          <div style={{ flex: 1, height: 1, background: `${accent}30` }} />
+          <div style={{ width: 6, height: 6, borderRadius: "50%", background: accent }} />
+          <div style={{ flex: 1, height: 1, background: `${accent}30` }} />
         </div>
       </div>
 
-      {/* ── Research Summary ── */}
+      {/* Summary */}
       {p.summary && (
-        <div style={{ marginBottom: 22 }}>
-          <h2 style={{
-            fontSize: 13, fontWeight: 900,
-            color: DARK, marginBottom: 8,
-            fontFamily: "'Georgia', serif",
-            fontStyle: "italic",
-          }}>
-            Research Interests & Profile
-          </h2>
-          <p style={{
-            lineHeight: 1.8, color: "#374151",
-            fontSize: 10.5, fontStyle: "italic",
-            borderLeft: `3px solid ${ACCENT}`,
-            paddingLeft: 14,
-          }}>
+        <>
+          <Section title="Research Interests & Profile" />
+          <p style={{ color: "#374151", lineHeight: 1.8, fontSize: 11, borderLeft: `3px solid ${accent}30`, paddingLeft: 14, fontStyle: "italic" }}>
             {p.summary}
           </p>
-        </div>
+        </>
       )}
 
-      {/* ── Academic Experience ── */}
+      {/* Experience */}
       {experience.length > 0 && (
-        <div style={{ marginBottom: 22 }}>
-          <h2 style={{
-            fontSize: 13, fontWeight: 900,
-            color: DARK, marginBottom: 4,
-            fontFamily: "'Georgia', serif",
-          }}>
-            Academic & Professional Experience
-          </h2>
-          <div style={{
-            height: 2,
-            background: `linear-gradient(90deg, ${ACCENT}, transparent)`,
-            marginBottom: 14,
-          }} />
+        <>
+          <Section title="Academic & Professional Experience" />
           {experience.map((e) => (
-            <div key={e.id} style={{
-              marginBottom: 16,
-              paddingLeft: 16,
-              borderLeft: `1px dashed #d1d5db`,
-            }}>
-              <div style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "baseline",
-              }}>
-                <strong style={{
-                  fontSize: 11, fontWeight: 800,
-                  color: DARK, fontFamily: "sans-serif",
-                }}>
-                  {e.role || "Position"}
-                </strong>
-                <span style={{
-                  fontSize: 9.5, color: "#6b7280",
-                  fontFamily: "sans-serif", fontStyle: "italic",
-                }}>
-                  {e.period}
-                </span>
+            <div key={e.id} style={{ marginBottom: 14, borderLeft: `2px dashed ${accent}30`, paddingLeft: 14 }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <strong style={{ fontSize: 12, fontWeight: 800 }}>{e.role}</strong>
+                <span style={{ fontSize: 10, color: "#6b7280", fontStyle: "italic" }}>{e.period}</span>
               </div>
-              <div style={{
-                fontSize: 10, color: ACCENT,
-                fontWeight: 700, fontFamily: "sans-serif",
-                marginBottom: 6,
-              }}>
+              <div style={{ color: accent, fontSize: 11, fontWeight: 600, marginBottom: 5 }}>
                 {e.company}{e.location ? `, ${e.location}` : ""}
               </div>
               {e.bullets.filter(Boolean).map((b, i) => (
-                <div key={i} style={{
-                  display: "flex", gap: 8, marginBottom: 4,
-                }}>
-                  <span style={{
-                    color: ACCENT, flexShrink: 0,
-                    fontSize: 10, marginTop: 1,
-                  }}>
-                    ○
-                  </span>
-                  <span style={{
-                    lineHeight: 1.65, color: "#374151",
-                    fontFamily: "sans-serif", fontSize: 10.5,
-                  }}>
-                    {b}
-                  </span>
+                <div key={i} style={{ display: "flex", gap: 8, marginBottom: 3 }}>
+                  <span style={{ color: accent, fontWeight: 700, flexShrink: 0 }}>•</span>
+                  <span style={{ color: "#4b5563", lineHeight: 1.6 }}>{b}</span>
                 </div>
               ))}
             </div>
           ))}
-        </div>
+        </>
       )}
 
-      {/* ── Education ── */}
+      {/* Education */}
       {education.length > 0 && (
-        <div style={{ marginBottom: 22 }}>
-          <h2 style={{
-            fontSize: 13, fontWeight: 900,
-            color: DARK, marginBottom: 4,
-            fontFamily: "'Georgia', serif",
-          }}>
-            Education
-          </h2>
-          <div style={{
-            height: 2,
-            background: `linear-gradient(90deg, ${ACCENT}, transparent)`,
-            marginBottom: 14,
-          }} />
+        <>
+          <Section title="Education" />
           {education.map((e) => (
-            <div key={e.id} style={{
-              marginBottom: 12,
-              paddingLeft: 16,
-              borderLeft: `1px dashed #d1d5db`,
-            }}>
-              <div style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}>
-                <strong style={{
-                  fontSize: 11, fontWeight: 800,
-                  fontFamily: "sans-serif",
-                }}>
-                  {e.degree || "Degree"}
-                </strong>
-                <span style={{
-                  fontSize: 9.5, color: "#6b7280",
-                  fontFamily: "sans-serif", fontStyle: "italic",
-                }}>
-                  {e.period}
-                </span>
+            <div key={e.id} style={{ display: "flex", justifyContent: "space-between", marginBottom: 10, paddingLeft: 14 }}>
+              <div>
+                <strong style={{ fontSize: 12 }}>{e.degree}</strong>
+                <div style={{ fontSize: 10, color: "#6b7280" }}>{e.institution}{e.gpa ? ` · GPA: ${e.gpa}` : ""}</div>
               </div>
-              <div style={{
-                fontSize: 10, color: "#6b7280",
-                fontFamily: "sans-serif",
-              }}>
-                {e.institution}
-                {e.gpa ? (
-                  <span style={{
-                    color: ACCENT, fontWeight: 700, marginLeft: 8,
-                  }}>
-                    GPA: {e.gpa}
-                  </span>
-                ) : ""}
-              </div>
+              <span style={{ fontSize: 10, color: "#6b7280", fontStyle: "italic" }}>{e.period}</span>
             </div>
           ))}
-        </div>
+        </>
       )}
 
-      {/* ── Skills / Competencies ── */}
+      {/* Skills */}
       {skills.length > 0 && (
-        <div>
-          <h2 style={{
-            fontSize: 13, fontWeight: 900,
-            color: DARK, marginBottom: 4,
-            fontFamily: "'Georgia', serif",
-          }}>
-            Research Skills & Competencies
-          </h2>
-          <div style={{
-            height: 2,
-            background: `linear-gradient(90deg, ${ACCENT}, transparent)`,
-            marginBottom: 12,
-          }} />
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 8,
-          }}>
+        <>
+          <Section title="Skills & Expertise" />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, paddingLeft: 14 }}>
             {skills.map((s) => (
-              <div key={s.id} style={{
-                display: "flex", alignItems: "center", gap: 8,
-              }}>
-                <div style={{
-                  width: 6, height: 6, borderRadius: "50%",
-                  background: ACCENT, flexShrink: 0,
-                }} />
-                <span style={{
-                  fontSize: 10.5, color: "#374151",
-                  fontFamily: "sans-serif",
-                }}>
-                  {s.name}
-                </span>
+              <div key={s.id} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: accent, flexShrink: 0 }} />
+                <span style={{ fontSize: 11, color: "#374151" }}>{s.name}</span>
+                <span style={{ fontSize: 10, color: accent, marginLeft: "auto" }}>{s.level}%</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {/* Custom Sections */}
+      {(customSections || []).map((sec) => (
+        <div key={sec.id}>
+          <Section title={sec.title} />
+          <div style={{ paddingLeft: 14 }}>
+            {sec.items.filter((i) => i.text).map((item) => (
+              <div key={item.id} style={{ display: "flex", gap: 8, marginBottom: 4 }}>
+                <span style={{ color: accent, fontWeight: 700 }}>•</span>
+                <span style={{ color: "#4b5563" }}>{item.text}</span>
               </div>
             ))}
           </div>
         </div>
-      )}
-
+      ))}
     </div>
   );
 }

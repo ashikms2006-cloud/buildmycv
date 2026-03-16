@@ -1,27 +1,26 @@
 // ================================================
-// RESUME PREVIEW — Renders all 6 templates
+// RESUME PREVIEW — All 7 templates
 // ================================================
 
-import MinimalistTemplate from "./templates/MinimalistTemplate";
-import CreativeTemplate from "./templates/CreativeTemplate";
-import ExecutiveTemplate from "./templates/ExecutiveTemplate";
-import CorporateTemplate from "./templates/CorporateTemplate";
-import AcademicTemplate from "./templates/AcademicTemplate";
-import CreativeArtsTemplate from "./templates/CreativeArtsTemplate";
+import MinimalistTemplate    from "./templates/MinimalistTemplate";
+import CreativeTemplate      from "./templates/CreativeTemplate";
+import ExecutiveTemplate     from "./templates/ExecutiveTemplate";
+import CorporateTemplate     from "./templates/CorporateTemplate";
+import AcademicTemplate      from "./templates/AcademicTemplate";
+import CreativeArtsTemplate  from "./templates/CreativeArtsTemplate";
+import ProfessionalCVTemplate from "./templates/ProfessionalCVTemplate";
 
-export default function ResumePreview({ data, template }) {
+export default function ResumePreview({ data, template, accentColor, fontStyle }) {
+  const props = { data, accentColor, fontStyle };
   return (
-    <div style={{
-      background: "#ffffff",
-      minHeight: "100%",
-      padding: 0,
-    }}>
-      {template === "minimalist"   && <MinimalistTemplate   data={data} />}
-      {template === "creative"     && <CreativeTemplate     data={data} />}
-      {template === "executive"    && <ExecutiveTemplate    data={data} />}
-      {template === "corporate"    && <CorporateTemplate    data={data} />}
-      {template === "academic"     && <AcademicTemplate     data={data} />}
-      {template === "creativearts" && <CreativeArtsTemplate data={data} />}
+    <div style={{ background: "#ffffff", minHeight: "100%", padding: 0 }}>
+      {template === "minimalist"      && <MinimalistTemplate    {...props} />}
+      {template === "creative"        && <CreativeTemplate      {...props} />}
+      {template === "executive"       && <ExecutiveTemplate     {...props} />}
+      {template === "corporate"       && <CorporateTemplate     {...props} />}
+      {template === "academic"        && <AcademicTemplate      {...props} />}
+      {template === "creativearts"    && <CreativeArtsTemplate  {...props} />}
+      {template === "professionalcv"  && <ProfessionalCVTemplate {...props} />}
     </div>
   );
 }

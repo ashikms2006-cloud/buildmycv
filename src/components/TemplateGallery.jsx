@@ -1,21 +1,17 @@
 // ================================================
-// TEMPLATE GALLERY — All 6 templates with previews
+// TEMPLATE GALLERY — All 7 templates
 // ================================================
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 
 const COLORS = {
-  bg: "#0a0a0b",
-  card: "#16161a",
+  bg: "#0a0a0b", card: "#16161a",
   border: "rgba(255,255,255,0.07)",
-  accent: "#3B82F6",
-  accentLime: "#84cc16",
-  muted: "#6b7280",
-  white: "#ffffff",
+  accent: "#3B82F6", accentLime: "#84cc16",
+  muted: "#6b7280", white: "#ffffff",
 };
 
-// ── Mini preview thumbnails ──
 function TemplateMiniPreview({ type, accent }) {
   const container = {
     width: "100%", maxWidth: 200,
@@ -25,7 +21,6 @@ function TemplateMiniPreview({ type, accent }) {
     fontSize: 0, lineHeight: 0,
   };
 
-  // ── Minimalist ──
   if (type === "minimalist") return (
     <div style={{ ...container, padding: 14 }}>
       <div style={{ height: 20, background: "#111", borderRadius: 3, width: "70%", marginBottom: 6 }} />
@@ -41,7 +36,6 @@ function TemplateMiniPreview({ type, accent }) {
     </div>
   );
 
-  // ── Creative ──
   if (type === "creative") return (
     <div style={{ ...container, display: "flex" }}>
       <div style={{ width: "38%", background: "#1e3a5f", padding: 10 }}>
@@ -64,7 +58,6 @@ function TemplateMiniPreview({ type, accent }) {
     </div>
   );
 
-  // ── Executive ──
   if (type === "executive") return (
     <div style={{ ...container, padding: 12 }}>
       <div style={{ textAlign: "center", marginBottom: 8 }}>
@@ -80,7 +73,6 @@ function TemplateMiniPreview({ type, accent }) {
     </div>
   );
 
-  // ── Corporate ──
   if (type === "corporate") return (
     <div style={{ ...container }}>
       <div style={{ background: "#1e3a5f", padding: "10px 12px" }}>
@@ -114,7 +106,6 @@ function TemplateMiniPreview({ type, accent }) {
     </div>
   );
 
-  // ── Academic ──
   if (type === "academic") return (
     <div style={{ ...container, padding: 12 }}>
       <div style={{ textAlign: "center", marginBottom: 10 }}>
@@ -138,13 +129,12 @@ function TemplateMiniPreview({ type, accent }) {
     </div>
   );
 
-  // ── Creative Arts ──
   if (type === "creativearts") return (
     <div style={{ ...container }}>
-      <div style={{ height: 5, background: `linear-gradient(90deg, #7c3aed, #ec4899, #f97316, #0d9488)` }} />
+      <div style={{ height: 5, background: "linear-gradient(90deg, #7c3aed, #ec4899, #f97316, #0d9488)" }} />
       <div style={{ padding: 10 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-          <div style={{ width: 28, height: 28, borderRadius: 6, background: `linear-gradient(135deg, #7c3aed, #ec4899)`, flexShrink: 0 }} />
+          <div style={{ width: 28, height: 28, borderRadius: 6, background: "linear-gradient(135deg, #7c3aed, #ec4899)", flexShrink: 0 }} />
           <div>
             <div style={{ height: 8, background: "linear-gradient(90deg, #7c3aed, #ec4899)", borderRadius: 2, width: 70, marginBottom: 3 }} />
             <div style={{ height: 5, background: "#f97316", borderRadius: 2, width: 50 }} />
@@ -159,7 +149,53 @@ function TemplateMiniPreview({ type, accent }) {
           <div key={i} style={{ height: 4, background: "#f3f4f6", borderRadius: 2, width: `${w}%`, marginBottom: 4, borderLeft: `3px solid ${["#7c3aed", "#ec4899", "#f97316"][i]}` }} />
         ))}
       </div>
-      <div style={{ height: 4, background: `linear-gradient(90deg, #0d9488, #f97316, #ec4899, #7c3aed)` }} />
+      <div style={{ height: 4, background: "linear-gradient(90deg, #0d9488, #f97316, #ec4899, #7c3aed)" }} />
+    </div>
+  );
+
+  if (type === "professionalcv") return (
+    <div style={{ ...container }}>
+      {/* Gold top bar */}
+      <div style={{ height: 5, background: "linear-gradient(90deg, #b8860b, #d4a843, #b8860b)" }} />
+      {/* Black header */}
+      <div style={{ background: "#0a0a0a", padding: "10px 12px" }}>
+        <div style={{ height: 12, background: "#fff", borderRadius: 2, width: "55%", marginBottom: 5 }} />
+        <div style={{ height: 7, background: "#b8860b", borderRadius: 2, width: "40%" }} />
+      </div>
+      {/* Two column body */}
+      <div style={{ display: "flex" }}>
+        {/* Sidebar */}
+        <div style={{ width: "30%", background: "#faf9f7", borderRight: "1px solid #e8e2d4", padding: "8px 8px" }}>
+          <div style={{ height: 4, background: "#b8860b", width: 20, borderRadius: 1, marginBottom: 6 }} />
+          {[70, 90, 60, 80].map((w, i) => (
+            <div key={i} style={{ marginBottom: 5 }}>
+              <div style={{ height: 3, background: "#e8e8e8", borderRadius: 1, marginBottom: 2 }}>
+                <div style={{ height: "100%", background: "#b8860b", borderRadius: 1, width: `${w}%` }} />
+              </div>
+            </div>
+          ))}
+          <div style={{ height: 4, background: "#b8860b", width: 20, borderRadius: 1, marginBottom: 6, marginTop: 8 }} />
+          {[85, 70, 95].map((w, i) => (
+            <div key={i} style={{ height: 4, background: "#e5e7eb", borderRadius: 1, width: `${w}%`, marginBottom: 4 }} />
+          ))}
+        </div>
+        {/* Main */}
+        <div style={{ flex: 1, padding: "8px 10px" }}>
+          <div style={{ height: 4, background: "#b8860b", width: 24, borderRadius: 1, marginBottom: 6 }} />
+          {[100, 85, 90, 75, 88, 70, 95, 80].map((w, i) => (
+            <div key={i} style={{ height: 4, background: i % 4 === 0 ? "#1a1a1a" : "#e5e7eb", borderRadius: 1, width: `${w}%`, marginBottom: 4 }} />
+          ))}
+          <div style={{ height: 4, background: "#b8860b", width: 24, borderRadius: 1, marginBottom: 6, marginTop: 8 }} />
+          {[90, 75, 85, 60].map((w, i) => (
+            <div key={i} style={{ height: 4, background: "#e5e7eb", borderRadius: 1, width: `${w}%`, marginBottom: 4 }} />
+          ))}
+        </div>
+      </div>
+      {/* Footer */}
+      <div style={{ background: "#faf9f7", borderTop: "1px solid #e8e2d4", padding: "4px 10px", display: "flex", justifyContent: "space-between" }}>
+        <div style={{ height: 3, background: "#d1d5db", borderRadius: 1, width: "40%" }} />
+        <div style={{ height: 3, background: "#d1d5db", borderRadius: 1, width: "30%" }} />
+      </div>
     </div>
   );
 
@@ -210,6 +246,13 @@ export default function TemplateGallery({ setPage, selectedTemplate, setSelected
       tags: ["Colorful", "Bold", "Creative"],
       accent: "#ec4899",
     },
+    {
+      id: "professionalcv",
+      name: "⭐ Professional CV",
+      desc: "Premium multi-page CV for senior, executive and high-level positions. Gold accents, sidebar layout, projects, awards and references.",
+      tags: ["Executive", "Multi-page", "Premium"],
+      accent: "#b8860b",
+    },
   ];
 
   return (
@@ -249,7 +292,7 @@ export default function TemplateGallery({ setPage, selectedTemplate, setSelected
             textAlign: "center", color: COLORS.muted,
             fontSize: 17, marginBottom: 60,
           }}>
-            Six distinctive designs, all export-ready and ATS-optimized.
+            Seven distinctive designs — all export-ready and ATS-optimized.
           </p>
         </motion.div>
 
@@ -268,19 +311,42 @@ export default function TemplateGallery({ setPage, selectedTemplate, setSelected
               whileHover={{ y: -6 }}
               onClick={() => { setSelectedTemplate(t.id); setPage("editor"); }}
               style={{
-                background: COLORS.card,
-                border: `2px solid ${selectedTemplate === t.id ? t.accent : COLORS.border}`,
+                background: t.id === "professionalcv"
+                  ? "linear-gradient(135deg, #16161a, #1a1505)"
+                  : COLORS.card,
+                border: `2px solid ${selectedTemplate === t.id
+                  ? t.accent
+                  : t.id === "professionalcv"
+                    ? "rgba(184,134,11,0.3)"
+                    : COLORS.border}`,
                 borderRadius: 20, overflow: "hidden",
                 cursor: "pointer",
                 transition: "border-color 0.2s, box-shadow 0.2s",
                 boxShadow: selectedTemplate === t.id
-                  ? `0 0 20px ${t.accent}30`
-                  : "none",
+                  ? `0 0 24px ${t.accent}40`
+                  : t.id === "professionalcv"
+                    ? "0 0 24px rgba(184,134,11,0.15)"
+                    : "none",
               }}
             >
+              {/* Premium badge for Pro CV */}
+              {t.id === "professionalcv" && (
+                <div style={{
+                  background: "linear-gradient(90deg, #b8860b, #d4a843)",
+                  padding: "6px 16px",
+                  fontSize: 11, fontWeight: 800,
+                  color: "#fff", letterSpacing: "0.08em",
+                  textAlign: "center",
+                  textTransform: "uppercase",
+                }}>
+                  ⭐ Premium Multi-Page CV Template
+                </div>
+              )}
+
               {/* Preview */}
               <div style={{
-                background: "#0d0d10", height: 220,
+                background: t.id === "professionalcv" ? "#0d0c07" : "#0d0d10",
+                height: 220,
                 display: "flex", alignItems: "center",
                 justifyContent: "center", padding: 20,
                 position: "relative",
